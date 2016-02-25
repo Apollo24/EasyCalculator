@@ -1,5 +1,7 @@
 package com.antonsusman.easycalculator;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
@@ -12,17 +14,28 @@ public class MainActivity extends ActionBarActivity {
     private TextView Scr;
     private float NumberBf=0, NumAf, result=0;
     private String Operation, mod="replace";
+
+    private ClipboardManager myClipboard;
+    private ClipData myClip;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
+
         Scr = (TextView) findViewById(R.id.txtScreen);
         Scr.setText("");
+
+
         int idList[] = {R.id.btn0, R.id.btn1, R.id.btn2, R.id.btn2, R.id.btn3, R.id.btn4,
                 R.id.btn5, R.id.btn6, R.id.btn7, R.id.btn8, R.id.btn9,
                 R.id.btnPlus, R.id.btnMinus, R.id.btnX, R.id.btnDiv,
-                R.id.btnClear,R.id.btnEquals, R.id.btnDot, };
+                R.id.btnClear,R.id.btnEquals, R.id.btnDot, R.id.btnCopy };
 
         for(int id:idList) {
             View v = (View) findViewById(id);
@@ -33,6 +46,26 @@ public class MainActivity extends ActionBarActivity {
                 }
             });
         }
+
+
+        Button copy=(Button)findViewById(R.id.btnCopy);
+        final ClipboardManager myClipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+
+       copy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String text;
+                text = Scr.getText().toString();
+
+                myClip = ClipData.newPlainText("text", text);
+                myClipboard.setPrimaryClip(myClip);
+
+                Toast.makeText(getApplicationContext(), "Copied to clipboard", Toast.LENGTH_SHORT).show();
+            }
+       });
+
+
+
     }
 
 
@@ -89,11 +122,15 @@ public class MainActivity extends ActionBarActivity {
         mod = "add";
     }
     public void onButtonClick(View v) {
+
         switch (v.getId()) {
+
+
             case R.id.btnClear: //Clear
                 Scr.setText("");
                 NumberBf = 0;
                 Operation = "";
+                Toast.makeText(getApplicationContext(), "Cleared", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.btnPlus:
                 mMath("+");
