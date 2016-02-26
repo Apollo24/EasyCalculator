@@ -2,7 +2,9 @@ package com.antonsusman.easycalculator;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
+import android.content.Context;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.Button;
@@ -24,6 +26,8 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
 
 
@@ -123,6 +127,8 @@ public class MainActivity extends ActionBarActivity {
     }
     public void onButtonClick(View v) {
 
+        final Vibrator vibe = (Vibrator) MainActivity.this.getSystemService(Context.VIBRATOR_SERVICE);
+
         switch (v.getId()) {
 
 
@@ -130,7 +136,7 @@ public class MainActivity extends ActionBarActivity {
                 Scr.setText("");
                 NumberBf = 0;
                 Operation = "";
-                Toast.makeText(getApplicationContext(), "Cleared", Toast.LENGTH_SHORT).show();
+                vibe.vibrate(200);
                 break;
             case R.id.btnPlus:
                 mMath("+");
