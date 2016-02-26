@@ -3,9 +3,12 @@ package com.antonsusman.easycalculator;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v7.app.ActionBarActivity;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -20,6 +23,9 @@ public class MainActivity extends ActionBarActivity {
     private ClipboardManager myClipboard;
     private ClipData myClip;
 
+    int MENU_COLOR_RED = 1;
+    int MENU_COLOR_GREEN = 2;
+
 
 
     @Override
@@ -27,14 +33,10 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
-
-
-
         Scr = (TextView) findViewById(R.id.txtScreen);
         Scr.setText("");
 
+        registerForContextMenu(Scr);
 
         int idList[] = {R.id.btn0, R.id.btn1, R.id.btn2, R.id.btn2, R.id.btn3, R.id.btn4,
                 R.id.btn5, R.id.btn6, R.id.btn7, R.id.btn8, R.id.btn9,
@@ -68,8 +70,38 @@ public class MainActivity extends ActionBarActivity {
             }
        });
 
+    }
+
+    public void onCreateContextMenu(ContextMenu menu, View v,
+                                    ContextMenu.ContextMenuInfo menuInfo) {
+
+        int MENU_COLOR_RED = 1;
+        int MENU_COLOR_GREEN = 2;
+        int MENU_COLOR_BLUE = 3;
+        menu.add(0, MENU_COLOR_RED, 0, "Red");
+        menu.add(0, MENU_COLOR_GREEN, 0, "Green");
+        menu.add(0, MENU_COLOR_BLUE, 0, "Blue");
+
+    }
+
+    public boolean onContextItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
 
 
+            case 1:
+                Scr.setTextColor(Color.RED);
+                break;
+            case 2:
+                Scr.setTextColor(Color.GREEN);
+                break;
+            case 3:
+                Scr.setTextColor(Color.BLUE);
+                break;
+
+
+        }
+        return super.onContextItemSelected(item);
     }
 
 
