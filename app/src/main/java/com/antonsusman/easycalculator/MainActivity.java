@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v7.app.ActionBarActivity;
 import android.view.ContextMenu;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -32,6 +33,7 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         Scr = (TextView) findViewById(R.id.txtScreen);
         Scr.setText("");
@@ -58,18 +60,41 @@ public class MainActivity extends ActionBarActivity {
         final ClipboardManager myClipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
 
        copy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String text;
-                text = Scr.getText().toString();
+           @Override
+           public void onClick(View v) {
+               String text;
+               text = Scr.getText().toString();
 
-                myClip = ClipData.newPlainText("text", text);
-                myClipboard.setPrimaryClip(myClip);
+               myClip = ClipData.newPlainText("text", text);
+               myClipboard.setPrimaryClip(myClip);
 
-                Toast.makeText(getApplicationContext(), "Copied to clipboard", Toast.LENGTH_SHORT).show();
-            }
+               Toast.makeText(getApplicationContext(), "Copied to clipboard", Toast.LENGTH_SHORT).show();
+           }
        });
 
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+
+
+        switch (item.getItemId()) {
+
+            case R.id.exit:
+                finish();
+                System.exit(0);
+                break;
+
+            case R.id.about:
+                Toast.makeText(getApplicationContext(), "Anton Susman. Android Course Tau 2016", Toast.LENGTH_LONG).show();
+
+        }
+        return super.onContextItemSelected(item);
     }
 
     public void onCreateContextMenu(ContextMenu menu, View v,

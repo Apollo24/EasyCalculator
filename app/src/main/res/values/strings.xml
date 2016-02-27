@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Easy Calculator</string>
+
+    <string name="exit">Exit</string>
+    <string name="about">About</string>
+
+
 </resources>

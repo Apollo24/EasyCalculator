@@ -10,9 +10,9 @@
         android:id="@+id/linearLayout1"
         android:layout_marginLeft="10pt"
         android:layout_marginRight="10pt"
-        android:layout_marginTop="3pt"
+        android:layout_marginTop="3pt">
 
-        >
+
         <TextView
             android:layout_weight="1"
             android:layout_height="90dp"
